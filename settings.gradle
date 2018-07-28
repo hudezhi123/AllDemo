@@ -1,1 +1,1 @@
-include ':app', ':animation', ':customview', ':okhttp', ':retrofit', ':rxjava', ':evenbus'
+include ':app', ':animation', ':customview', ':okhttp', ':retrofit', ':rxjava', ':evenbus', ':jni', ':aidl'
