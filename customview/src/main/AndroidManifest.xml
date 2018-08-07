@@ -9,10 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".swipelayout.QQSwipeActivity"></activity>
+        <activity android:name=".flexible.RubberLineActivity">
 
         </activity>
-        <activity android:name=".swipelayout.QQSwipeActivity">
+        <activity android:name=".rain.RainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

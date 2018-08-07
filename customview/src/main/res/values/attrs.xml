@@ -34,5 +34,12 @@
         <attr name="text" format="string|reference" />
     </declare-styleable>
 
+    <declare-styleable name="RainDrop">
+        <attr name="centerX" format="dimension" />
+        <attr name="centerY" format="dimension" />
+        <attr name="centerR" format="dimension" />
+        <attr name="color" format="color" />
+        <attr name="alpha_r" format="integer" />
+    </declare-styleable>
 
 </resources>
