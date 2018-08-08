@@ -42,4 +42,14 @@
         <attr name="alpha_r" format="integer" />
     </declare-styleable>
 
+    //九宫格中的子按钮
+    <declare-styleable name="ToggleView">
+        <attr name="InCircleR_T" format="dimension" />
+        <attr name="OutCircleR_T" format="dimension" />
+        <attr name="InCircleColor_T" format="color" />
+        <attr name="OutCircleColor_T" format="color" />
+
+    </declare-styleable>
+
+
 </resources>

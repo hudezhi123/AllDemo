@@ -10,11 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
-        <activity android:name=".swipelayout.QQSwipeActivity"></activity>
-        <activity android:name=".flexible.RubberLineActivity">
+        <activity android:name=".swipelayout.QQSwipeActivity" />
+        <activity android:name=".flexible.RubberLineActivity"></activity>
+        <activity android:name=".rain.RainActivity">
 
         </activity>
-        <activity android:name=".rain.RainActivity">
+        <activity android:name=".ninelock.NineActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
