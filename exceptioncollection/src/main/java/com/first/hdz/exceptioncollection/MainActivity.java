@@ -1,4 +1,4 @@
-package com.first.hdz.okhttp;
+package com.first.hdz.exceptioncollection;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

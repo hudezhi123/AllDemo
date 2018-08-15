@@ -20,8 +20,6 @@ import com.first.hdz.customview.R;
  */
 public class ToggleView extends View {
 
-    //最好能添加触感反馈
-
     private Paint inPaint;
     private Paint outPaint;
     private int outColor;
@@ -130,6 +128,5 @@ public class ToggleView extends View {
         outPaint.setColor(outColor);
         canvas.drawCircle(cx, cy, outR, outPaint);
         canvas.drawCircle(cx, cy, inR, inPaint);
-
     }
 }

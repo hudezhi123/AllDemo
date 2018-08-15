@@ -79,6 +79,7 @@ public class NineGroupView extends ViewGroup {
         paint.setAntiAlias(true);
         paint.setColor(Color.RED);
         paint.setStyle(Paint.Style.STROKE);
+        //如果该方法在此不调用的话，那么onDraw()方法将不被调用，那么就无法完成连接线的绘制
         setWillNotDraw(false);
     }
 
