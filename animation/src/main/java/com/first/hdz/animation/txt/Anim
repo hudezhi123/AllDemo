@@ -1,0 +1,28 @@
+属性动画
+
+  属性动画是API 11新加入的特性，和view动画不同，比较常用的几个动画类：ValueAnimator、ObjectAnimator
+和AnimationSet。其中ObjectAnimator继承自ValueAnimator，AnimatorSet是动画集合，可以定义一组动画，使用
+起来也比较简单。
+
+ObjectAnimator.ofFloat(myObject,"translationY",-myObject.getHeight()).start();
+
+
+ValueAnimator colorAnim = ObjectAnimator.ofInt(this,"backgroundColor",0xffff8080,0xff8080ff);
+colorAnim.setDuration(3000);
+colorAnim.setEvaluator(new ArbEvaluator());
+colorAnim.setRepeatCount(ValueAnimator.INFINITE);
+colorAnim.setRepeatMode(ValueAnimator.REVERSE);
+colorAnim.start();
+
+AnimatorSet set = new AnimatorSet();
+set.playTogether();
+
+<set>
+    <objectAnimator>
+        
+    </objectAnimator>
+
+    <animator>
+
+    </animator>
+</set>
