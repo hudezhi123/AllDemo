@@ -17,12 +17,53 @@ colorAnim.start();
 AnimatorSet set = new AnimatorSet();
 set.playTogether();
 
-<set>
-    <objectAnimator>
-        
+<set android:ordering="together|sequentially">
+    <objectAnimator propertyName="String"
+         android:duration="1000"
+         android:valueFrom="float|int|color"
+         android:valueTo="float|int|color"
+         android:startOffset="int"
+         android:repreatCount="int"
+         android:repeatMode="restart|reverse"
+         android:valueType="intType|floatType">
+
     </objectAnimator>
 
-    <animator>
+    <animator
+        android:duration="1000"
+        android:valueFrom="float|int|color"
+        android:valueTo="float|int|color"
+        android:startOffset="int"
+        android:repreatCount="int"
+        android:repeatMode="restart|reverse"
+        android:valueType="intType|floatType">
 
     </animator>
 </set>
+
+其中together表示set的子动画同时执行，sequentially表示set的子动画按照前后顺序依次执行。
+set对应AnimatorSet
+objectAnimator对应ObjectAnimator
+animator对应ValueAnimator
+
+其中ObjectAnimator中的属性
+animator属性比ObjectAnimator少了一个属性，所以只是对ObjectAnimator中的属性进行阐述
+android:propertyName----表示属性动画的作用对象的属性名称（例如：背景颜色、长、宽、位置、透明度等）
+android:valueType----表示android:propertyName所指的属性类型，有"intType"和"floatType",如果propertyName
+     所指的表示的是颜色，那么就不需要指定android:valueType,系统会自动对颜色就行处理
+
+AnimatorSet set = AnimatorInflater.loadAnimator(myContext,R.anim.property_anim);
+set.setTarget(mButton);
+set.start();
+
+理解插值器和估值器
+TimeInterpolator--时间插值器。
+LinearInterpolator   线性插值器：匀速运动过
+AccelerateDecelerateInterpolator   加速减速插值器：动画两头慢，中间快
+DecelerateInterpolator   减速插值器：动画越来越慢
+
+TypeEvaluator--估值器
+IntEvaluator
+FloatEvaluator
+ArgbEvaluator
+
