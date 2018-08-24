@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/goods"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
@@ -22,5 +22,11 @@
         android:layout_marginRight="20dp"
         android:text="购买"
         android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#ff888888" />
 
 </RelativeLayout>

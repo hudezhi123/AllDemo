@@ -22,7 +22,13 @@ public class ShopingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private OnBuyListener listener;
 
     public interface OnBuyListener {
-        public void buy();
+
+        /**
+         * 触动动画的控件
+         *
+         * @param view
+         */
+        public void buy(View view);
     }
 
     public void setOnBuyListener(OnBuyListener listener) {
@@ -75,7 +81,7 @@ public class ShopingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         @Override
         public void onClick(View view) {
             if (listener != null) {
-                listener.buy();
+                listener.buy(view);
             }
         }
     }
