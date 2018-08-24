@@ -9,6 +9,7 @@ import android.view.View;
  */
 public class PositionUtils {
 
+
     /**
      * 获取控件中心坐标：相对屏幕的坐标
      *
@@ -27,7 +28,22 @@ public class PositionUtils {
     }
 
     /**
-     * 获取控件中心坐标：相对父控件的坐标
+     * 获取控件的起始点坐标：相对屏幕的坐标
+     *
+     * @param view
+     * @return
+     */
+    public static Point getStartPositionOnScreen(View view) {
+        Point point = new Point();
+        int[] position = new int[2];
+        view.getLocationOnScreen(position);
+        point.x = position[0];
+        point.y = position[1];
+        return point;
+    }
+
+    /**
+     * 获取控件中心坐标：相对内容窗口的坐标
      *
      * @param view
      * @return
@@ -40,6 +56,22 @@ public class PositionUtils {
         int height = view.getHeight();
         point.x = position[0] + width / 2;
         point.y = position[1] + height / 2;
+        return point;
+    }
+
+
+    /**
+     * 获取控件的起始点坐标：相对内容窗口的坐标
+     *
+     * @param view
+     * @return
+     */
+    public static Point getStartPositionOnWindow(View view) {
+        Point point = new Point();
+        int[] position = new int[2];
+        view.getLocationInWindow(position);
+        point.x = position[0];
+        point.y = position[1];
         return point;
     }
 }

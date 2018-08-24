@@ -28,7 +28,7 @@ public class ShopingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
          *
          * @param view
          */
-        public void buy(View view);
+        public void buy(ImageView view, int position);
     }
 
     public void setOnBuyListener(OnBuyListener listener) {
@@ -75,13 +75,13 @@ public class ShopingCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             super(itemView);
             imgGoods = itemView.findViewById(R.id.goods);
             btnBuy = itemView.findViewById(R.id.buy);
-            btnBuy.setOnClickListener(this);
+            imgGoods.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             if (listener != null) {
-                listener.buy(view);
+                listener.buy((ImageView) view, getLayoutPosition());
             }
         }
     }
