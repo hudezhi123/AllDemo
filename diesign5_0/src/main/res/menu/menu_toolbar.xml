@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/action_edit"
+        android:icon="@mipmap/icon_edit_menu"
+        android:title="编辑" />
+    <item
+        android:id="@+id/action_share"
+        android:icon="@mipmap/icon_share_menu"
+        android:title="分享" />
+
+    <item
+        android:id="@+id/action_menu"
+        android:icon="@mipmap/icon_add_friend_menu"
+        android:title="菜单" />
+</menu>

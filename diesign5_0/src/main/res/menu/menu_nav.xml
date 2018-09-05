@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@mipmap/icon_vip_nav"
+        android:title="会员"
+        android:id="@+id/vip_nav"/>
+
+    <item
+        android:icon="@mipmap/icon_setting_nav"
+        android:title="设置"
+        android:id="@+id/setting_nav"/>
+
+    <item
+        android:icon="@mipmap/icon_wallet_nav"
+        android:title="钱包"
+        android:id="@+id/wallet_nav"/>
+
+    <item
+        android:icon="@mipmap/icon_store_nav"
+        android:title="会员"
+        android:id="@+id/stare_nav"/>
+
+    <item
+        android:icon="@mipmap/icon_album_nav"
+        android:title="相册"
+        android:id="@+id/album_nav"/>
+
+</menu>
