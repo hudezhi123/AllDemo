@@ -23,27 +23,27 @@ public class ItemBean {
         this.mBitmap = mBitmap;
     }
 
-    public int getmItemId() {
+    public int getItemId() {
         return mItemId;
     }
 
-    public void setmItemId(int mItemId) {
+    public void setItemId(int mItemId) {
         this.mItemId = mItemId;
     }
 
-    public int getmBitmapId() {
+    public int getBitmapId() {
         return mBitmapId;
     }
 
-    public void setmBitmapId(int mBitmapId) {
+    public void setBitmapId(int mBitmapId) {
         this.mBitmapId = mBitmapId;
     }
 
-    public Bitmap getmBitmap() {
+    public Bitmap getBitmap() {
         return mBitmap;
     }
 
-    public void setmBitmap(Bitmap mBitmap) {
+    public void setBitmap(Bitmap mBitmap) {
         this.mBitmap = mBitmap;
     }
 

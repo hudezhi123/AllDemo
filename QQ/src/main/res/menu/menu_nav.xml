@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/vip_nav"
+        android:icon="@mipmap/icon_vip_nav"
+        android:title="@string/vip" />
+
+    <item
+        android:id="@+id/wallet_nav"
+        android:icon="@mipmap/icon_wallet_nav"
+        android:title="@string/wallet" />
+    <item
+        android:id="@+id/stare_nav"
+        android:icon="@mipmap/icon_store_nav"
+        android:title="@string/store" />
+
+    <item
+        android:id="@+id/album_nav"
+        android:icon="@mipmap/icon_album_nav"
+        android:title="@string/album" />
+
+    <item
+        android:id="@+id/setting_nav"
+        android:icon="@mipmap/icon_setting_nav"
+        android:title="@string/setting" />
+
+</menu>

@@ -1,3 +1,49 @@
 <resources>
     <string name="app_name">QQ</string>
+
+    //menu nav
+    <string name="vip">专享会员</string>
+    <string name="wallet">我的钱包</string>
+    <string name="store">我的收藏</string>
+    <string name="album">我的相册</string>
+    <string name="setting">设置</string>
+
+    //menu tool
+    <string name="create_group">创建群聊</string>
+    <string name="add_friend">添加好友/群</string>
+    <string name="scan">扫一扫</string>
+    <string name="receive_pay">收付款</string>
+    <string name="weather">天气</string>
+    <string name="night">夜间</string>
+    <string name="message">消息</string>
+    <string name="contact_people">联系人</string>
+    <string name="dynamic">动态</string>
+
+    <string name="group_talk">发起群聊</string>
+    <string name="help">帮助与反馈</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">搜索</string>
+    <string name="delete">删除</string>
+    <string name="force_top">置顶</string>
+    <string name="not_top">取消置顶</string>
+    <string name="search_share">search_share</string>
+    <string name="register">注册</string>
+    <string name="cancel">取消</string>
+    <string name="register_account">QQ号/手机号</string>
+    <string name="password">密码</string>
+    <string name="login">登录</string>
+    <string name="fogot_password">忘记密码？</string>
+    <string name="new_register">新用户注册</string>
+    <string name="qq">QQ</string>
+    <string name="protocol1">登录即代表阅读并同意</string>
+    <string name="protocol2">协议条款</string>
+    <string name="repassword">确认密码</string>
+    <string name="user_name_no_empty">用户名不能为空</string>
+    <string name="user_name_min_length">用户名长度不能小于6</string>
+    <string name="password_min_length">密码长度不能小于6</string>
+    <string name="password__no_empty">密码不能为空</string>
+    <string name="repassword__no_empty">确认密码不能为空</string>
+    <string name="password_not_same">两次输入密码不同</string>
 </resources>

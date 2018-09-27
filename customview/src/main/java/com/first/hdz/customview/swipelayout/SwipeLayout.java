@@ -3,6 +3,7 @@ package com.first.hdz.customview.swipelayout;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +44,6 @@ public class SwipeLayout extends ViewGroup {
             this.postInvalidate();
         }
     }
-
-
 
 
     @Override
@@ -118,6 +117,12 @@ public class SwipeLayout extends ViewGroup {
         }
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        getParent().requestDisallowInterceptTouchEvent(true);
+        return super.dispatchTouchEvent(ev);
+    }
+
     /**
      * 事件消费
      *
@@ -129,9 +134,12 @@ public class SwipeLayout extends ViewGroup {
         int action = event.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
+                Log.i("action----", "down");
                 mLastX = (int) event.getRawX();
                 break;
             case MotionEvent.ACTION_UP: {
+                Log.i("action----", "up");
+//                int moveX = (int) event.getRawX();
                 int scrollX = getScrollX();
                 if (scrollX > FlagWidthIntercept) {
                     mScroller.startScroll(getScrollX(), getScrollY(), FlagWidthIntercept - getScrollX(), 0);
@@ -144,6 +152,7 @@ public class SwipeLayout extends ViewGroup {
             }
             break;
             case MotionEvent.ACTION_MOVE: {
+                Log.i("action----", "move");
                 int currentX = (int) event.getRawX();
                 int scrollX = getScrollX();
                 int offsetX = currentX - mLastX;
@@ -174,7 +183,7 @@ public class SwipeLayout extends ViewGroup {
             }
             break;
             case MotionEvent.ACTION_CANCEL:
-
+                scrollTo(0, 0);
                 break;
         }
         return true;

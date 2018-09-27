@@ -1,1 +1,1 @@
-include ':app', ':animation', ':customview', ':okhttp', ':retrofit', ':rxjava', ':evenbus', ':jni', ':aidl', ':wechat', ':exceptioncollection', ':toolclass', ':diesign5_0', ':permission6_0', ':version7_0', ':version8_0', ':QQ', ':utils', ':gamepintu'
+include ':app', ':animation', ':customview', ':okhttp', ':retrofit', ':rxjava', ':evenbus', ':jni', ':aidl', ':wechat', ':exceptioncollection', ':toolclass', ':diesign5_0', ':permission6_0', ':version7_0', ':version8_0', ':QQ', ':utils', ':gamepintu', ':event'

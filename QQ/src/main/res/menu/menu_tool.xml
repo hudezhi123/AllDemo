@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/create_group"
+        android:icon="@mipmap/icon_create_group_tool"
+        android:title="@string/create_group" />
+
+    <item
+        android:id="@+id/add_friend"
+        android:icon="@mipmap/icon_friend_add_tool"
+        android:title="@string/add_friend" />
+
+    <item
+        android:id="@+id/scan"
+        android:icon="@mipmap/icon_scan_tool"
+        android:title="@string/scan" />
+
+    <item
+        android:id="@+id/stare_nav"
+        android:icon="@mipmap/icon_receive_pay_tool"
+        android:title="@string/receive_pay" />
+</menu>
