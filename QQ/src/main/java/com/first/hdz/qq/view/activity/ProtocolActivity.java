@@ -9,6 +9,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.first.hdz.qq.R;
 import com.first.hdz.qq.bean.BaseJson;
 import com.first.hdz.qq.bean.Protocol;
@@ -58,23 +60,29 @@ public class ProtocolActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void getProtocol() {
-        Observable<BaseJson<Protocol>> observable = QQService.Init().getService(QQApi.class).GetProtocol(1);
+        Observable<String> observable = QQService.Init(QQService.TYPE_STRING).getService(QQApi.class).GetProtocol(1);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseJson<Protocol>>() {
+                .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(BaseJson<Protocol> baseJson) {
-                        Protocol protocol = baseJson.getData();
-                        if (!StringUtils.isEmpty(protocol.getUrl())) {
-                            mWebView.loadUrl(protocol.getUrl());
-                        } else {
-                            mWebView.loadUrl(Constants.PROTOCOL_URL);
+                    public void onNext(String jsonResult) {
+                        BaseJson<Protocol> baseJson = JSON.parseObject(jsonResult, new TypeReference<BaseJson<Protocol>>() {
+                        });
+                        if (baseJson != null) {
+                            Protocol protocol = baseJson.getData();
+                            if (!StringUtils.isEmpty(protocol.getUrl())) {
+                                mWebView.loadUrl(protocol.getUrl());
+                            } else {
+                                mWebView.loadUrl(Constants.PROTOCOL_URL);
+                            }
                         }
+
+
                     }
 
                     @Override

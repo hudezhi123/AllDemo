@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.first.hdz.qq.R;
 import com.first.hdz.qq.bean.BaseJson;
 import com.first.hdz.qq.bean.LoginInfo;
@@ -109,25 +111,33 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             Toast.makeText(this, getString(R.string.password_min_length), Toast.LENGTH_SHORT).show();
             return;
         }
-        Observable<BaseJson<LoginInfo>> observable = QQService.Init().getService(QQApi.class).Login(AppUtils.getLoginParam(this), account, password);
+        Observable<String> observable = QQService.Init(QQService.TYPE_STRING).getService(QQApi.class).Login(AppUtils.getLoginParam(this), account, password);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseJson<LoginInfo>>() {
+                .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(BaseJson<LoginInfo> baseJson) {
-                        Toast.makeText(LoginActivity.this, baseJson.getMsg(), Toast.LENGTH_SHORT).show();
-                        if (null != baseJson.getData()) {
+                    public void onNext(String resultJson) {
+                        BaseJson<LoginInfo> baseJson = JSON.parseObject(resultJson, new TypeReference<BaseJson<LoginInfo>>() {
+                        });
+                        if (baseJson != null) {
                             LoginInfo info = baseJson.getData();
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.putExtra(Constants.DATA_KEY, info);
-                            startActivity(intent);
-                            LoginActivity.this.finish();
+                            if (info != null) {
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.putExtra(Constants.DATA_KEY, info);
+                                startActivity(intent);
+                                LoginActivity.this.finish();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "" + baseJson.getMsg(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Log.i("---", "失败");
                         }
+
                     }
 
                     @Override

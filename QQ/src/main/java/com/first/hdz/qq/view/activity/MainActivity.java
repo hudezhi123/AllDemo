@@ -2,6 +2,10 @@ package com.first.hdz.qq.view.activity;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -9,12 +13,16 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.FileProvider;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
@@ -22,6 +30,7 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -29,16 +38,40 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.first.hdz.qq.R;
+import com.first.hdz.qq.bean.LoginInfo;
+import com.first.hdz.qq.utils.AppUtils;
+import com.first.hdz.qq.utils.Constants;
+import com.first.hdz.qq.utils.DialogManager;
+import com.first.hdz.qq.utils.DisplayUtils;
+import com.first.hdz.qq.utils.FileAsyncTask;
 import com.first.hdz.qq.utils.PopWindowManager;
+import com.first.hdz.qq.utils.ProgressListener;
+import com.first.hdz.qq.utils.QQApi;
+import com.first.hdz.qq.utils.QQService;
+import com.first.hdz.qq.utils.StringUtils;
 import com.first.hdz.qq.view.base.BaseActivity;
 import com.first.hdz.qq.view.fragment.ContactFragment;
 import com.first.hdz.qq.view.fragment.DynamicFragment;
 import com.first.hdz.qq.view.fragment.MessageFragment;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -59,7 +92,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private FragmentManager mFragmentManager;
     private FragmentTransaction mTransaction;
 
+    private LoginInfo mInfo;
+
+    private QQApi qqApi;
+
     private PopWindowManager mManager;
+    private DialogManager mDialogManager;
 
     private MessageFragment mMessage;
     private ContactFragment mContact;
@@ -70,8 +108,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mManager = PopWindowManager.getInstance(this);
+        mDialogManager = DialogManager.create(this);
+        mInfo = (LoginInfo) getIntent().getSerializableExtra(Constants.DATA_KEY);
         init();
-
     }
 
 
@@ -132,6 +171,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Toast.makeText(MainActivity.this, (CharSequence) dataList.get(i).get("text"), Toast.LENGTH_SHORT).show();
+                        mManager.dismiss();
                     }
                 });
             }
@@ -143,6 +183,126 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void init() {
+        if (AppUtils.getVersionCode(this) < mInfo.getVersionCode()) {
+            initUpdateDialog();
+        }
+        initFragments();
+        initTitleBar();
+        initView();
+    }
+
+    private void initUpdateDialog() {
+        mDialogManager.setContentView(R.layout.dialog_layout, new DialogManager.OnActionCallBack() {
+            @Override
+            public void callBack(View contentView) {
+                TextView message = contentView.findViewById(R.id.text_message_dialog);
+                TextView title = contentView.findViewById(R.id.text_title_dialog);
+                TextView cancel = contentView.findViewById(R.id.text_cancel_dialog);
+                TextView confirm = contentView.findViewById(R.id.text_confirm_dialog);
+                TextView currentVersion = contentView.findViewById(R.id.text_current_version_dialog);
+                TextView updateVersion = contentView.findViewById(R.id.text_update_version_dialog);
+                TextView warn = contentView.findViewById(R.id.text_warn_dialog);
+                title.setText(getString(R.string.version_update));
+                message.setText(getString(R.string.update_message, mInfo.getTips()));
+                cancel.setText(getString(R.string.cancel));
+                confirm.setText(getString(R.string.confirm));
+                currentVersion.setText(getString(R.string.current_version, AppUtils.getVersionName(MainActivity.this)));
+                updateVersion.setText(getString(R.string.update_version, mInfo.getVersionName()));
+                if (mInfo.isForceStatus()) {
+                    warn.setText(getString(R.string.force_update_version));
+                } else {
+                    warn.setVisibility(View.GONE);
+                }
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mDialogManager.hide();
+                        MainActivity.this.finish();
+                    }
+                });
+                confirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mDialogManager.hide();
+                        new FileAsyncTask(MainActivity.this, new ProgressListener() {
+                            @Override
+                            public void onStart() {
+                                initDialog();
+                            }
+
+                            @Override
+                            public void onUpdateProgress(long progress, long length) {
+                                countProgress.setText(getString(R.string.progress_express, progress, length));
+                                int p = (int) (progress * 100 / length);
+                                mProgress.setText(getString(R.string.percentage, p));
+                                mProgressBar.setProgress(p);
+                            }
+
+                            @Override
+                            public void onEnd(String filePath) {
+                                if (mDialog != null && mDialog.isShowing()) {
+                                    mDialog.dismiss();
+                                }
+                                // TODO: 2018/9/30   安装apk
+                                if (!StringUtils.isEmpty(filePath)) {
+                                    installApk(filePath);
+                                } else {
+                                    Toast.makeText(MainActivity.this, "下载失败！", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }).execute(mInfo.getApkUrl());
+                    }
+                });
+            }
+        });
+        mDialogManager.show();
+    }
+
+    private void installApk(String filePath) {
+        File file = new File(filePath);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Uri apkUri = FileProvider.getUriForFile(this, "com.first.hdz.apk.provider", file);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        } else {
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        }
+        startActivity(intent);
+    }
+
+    private Dialog mDialog;
+    private ProgressBar mProgressBar;
+    private TextView progressTitle;
+    private TextView mProgress;
+    private TextView countProgress;
+
+    private void initDialog() {
+        mDialog = new Dialog(this, R.style.dialog);
+        mDialog.setCancelable(false);
+        View mContentView = LayoutInflater.from(this).inflate(R.layout.dialog_progress_layout, null);
+        mProgressBar = mContentView.findViewById(R.id.progress_bar_dialog);
+        countProgress = mContentView.findViewById(R.id.text_byte_progress_dialog);
+        mProgress = mContentView.findViewById(R.id.text_progress_dialog);
+        progressTitle = mContentView.findViewById(R.id.text_title_progress_dialog);
+        mProgressBar.setMax(100);
+        mProgressBar.setProgress(0);
+        progressTitle.setText(R.string.download_progress);
+        mProgress.setText("0%");
+        countProgress.setText("计算中...");
+        mDialog.setContentView(mContentView);
+        Window window = mDialog.getWindow();
+        WindowManager.LayoutParams params = window.getAttributes();
+        int[] size = DisplayUtils.getScreenSize(this);
+        params.width = size[0] * 8 / 10;
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(params);
+        mDialog.show();
+    }
+
+
+    private void initFragments() {
         mFragmentManager = getSupportFragmentManager();
         mTransaction = mFragmentManager.beginTransaction();
         fragmentList = new ArrayList<>();
@@ -154,8 +314,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         fragmentList.add(mDynamic);
         mTransaction.add(R.id.frame_content, mMessage);
         mTransaction.commit();
-        initTitleBar();
-        initView();
     }
 
     private void showFragment(int index) {
@@ -271,20 +429,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onPause() {
-        super.onPause();
         if (mManager != null) {
             mManager.onPause();
             if (mAnim != null) {
                 mAnim.cancel();
             }
         }
+        if (mDialogManager != null) {
+            mDialogManager.onPause();
+        }
+        super.onPause();
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         if (mManager != null) {
             mManager.onDestroy();
+            mManager = null;
         }
+        if (mDialogManager != null) {
+            mDialogManager.onDestroy();
+            mDialogManager = null;
+        }
+        super.onDestroy();
     }
 }

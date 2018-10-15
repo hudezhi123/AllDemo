@@ -21,10 +21,14 @@ public class PopWindowManager {
     private View popView;
     private static PopWindowManager mInstance;
 
+    private static int adjust = 40;
+
     public static final int TRANSLATE = 1;
     private static final int ROTATE = 2;
     private static final int SCALE = 3;
     private static final int ALPHA = 4;
+
+
 
     public interface OnPopViewInitCallBack {
         public void onCallBack(View popView);
@@ -83,8 +87,6 @@ public class PopWindowManager {
             mPopupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, point.x, point.y);
         }
     }
-
-    private static int adjust = 40;
 
     private Point calculateWindowLocation(View anchorView) {
         Point point = new Point();

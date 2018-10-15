@@ -6,10 +6,12 @@ package com.first.hdz.qq.utils;
  */
 public class Constants {
 
-    public static final String PROTOCOL_URL = "http://10.1.1.205:8080/QQServer/protocol.html";   //测试地址
+    public static final String APK_NAME = "QQ.apk";
+
+    public static final String PROTOCOL_URL = "http://10.1.1.206:8080/QQServer/protocol.html";   //测试地址
 
     // URL
-    public static final String BASE_URL = "http://10.1.1.205:8080/QQServer/";
+    public static final String BASE_URL = "http://10.1.1.206:8080/QQServer/";
 
     public static final String LOGIN = "Login";
 

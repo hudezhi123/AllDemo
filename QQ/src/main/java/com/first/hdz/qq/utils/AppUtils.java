@@ -24,11 +24,11 @@ public class AppUtils {
     }
 
 
-    public static long getVersionCode(Context context) {
+    public static int getVersionCode(Context context) {
         PackageInfo info = null;
         try {
             info = getPackageInfo(context);
-            return info.getLongVersionCode();
+            return info.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             return 0;
         }

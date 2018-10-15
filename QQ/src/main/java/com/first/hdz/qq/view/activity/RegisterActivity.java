@@ -88,7 +88,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void register(String userName, String password) {
-        Observable<BaseJson<Boolean>> observable = QQService.Init().getService(QQApi.class).Register(userName, password);
+        Observable<BaseJson<Boolean>> observable = QQService.Init(QQService.TYPE_BOOLEAN).getService(QQApi.class).Register(userName, password);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseJson<Boolean>>() {
