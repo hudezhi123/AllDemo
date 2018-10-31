@@ -1,6 +1,7 @@
 package com.first.hdz.qq.view.fragment;
 
 
+import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
@@ -19,6 +20,7 @@ import com.first.hdz.qq.R;
 import com.first.hdz.qq.bean.MessageBean;
 import com.first.hdz.qq.view.activity.SearchActivity;
 import com.first.hdz.qq.view.adapter.MessageAdapter;
+import com.first.hdz.qq.view.base.BaseFragment;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -29,7 +31,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MessageFragment extends Fragment implements View.OnClickListener {
+public class MessageFragment extends BaseFragment implements View.OnClickListener {
 
     private LinearLayout searchBar;
     private RecyclerView relv;
@@ -97,9 +99,15 @@ public class MessageFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.linear_search_bar:
-                Intent intent = new Intent(getContext(), SearchActivity.class);
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), searchBar, getString(R.string.search)).toBundle());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Intent intent = new Intent(getContext(), SearchActivity.class);
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), searchBar, getString(R.string.search)).toBundle());
+                } else {
+                    Intent intent = new Intent(getContext(), SearchActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }
+
 }

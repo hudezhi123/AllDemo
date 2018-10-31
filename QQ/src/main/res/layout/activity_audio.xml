@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.AudioActivity">
+
+    <include
+        android:id="@+id/include_title_bar"
+        layout="@layout/common_bar" />
+
+    <com.first.hdz.qq.view.customview.PagerSlidingTabStrip
+        android:id="@+id/tabs_audio_guide"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/include_title_bar"
+        app:pstsIndicatorColor="@color/colorAccent"
+        app:pstsIndicatorHeight="2dp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_audio_tab_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tabs_audio_guide" />
+</android.support.constraint.ConstraintLayout>

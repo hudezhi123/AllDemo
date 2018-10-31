@@ -1,5 +1,7 @@
 package com.first.hdz.qq.utils;
 
+import android.text.TextUtils;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
@@ -28,6 +30,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  * on 2018/9/25
  */
 public class QQService {
+
+    private static final String TAG = "QQService";
 
     private static QQService mService;
 
@@ -63,11 +67,15 @@ public class QQService {
                 }
             }
         }
-        mService.sedConvertType(type);
+        mService.setConvertType(type);
         return mService;
     }
 
-    private void sedConvertType(String type) {
+    private void setConvertType(String type) {
+        if (StringUtils.isEmpty(Constants.IP)) {
+            throw new NullPointerException(TAG + "---IP is empty");
+        }
+        Constants.BASE_URL = "http://" + Constants.IP + ":8080/QQServer/";
         mRetrofitBuilder = new Retrofit.Builder().baseUrl(Constants.BASE_URL).addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         switch (type) {
             case TYPE_BOOLEAN:

@@ -2,7 +2,6 @@ package com.first.hdz.qq.view.activity;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,24 +14,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +41,6 @@ import com.first.hdz.qq.utils.FileAsyncTask;
 import com.first.hdz.qq.utils.PopWindowManager;
 import com.first.hdz.qq.utils.ProgressListener;
 import com.first.hdz.qq.utils.QQApi;
-import com.first.hdz.qq.utils.QQService;
 import com.first.hdz.qq.utils.StringUtils;
 import com.first.hdz.qq.view.base.BaseActivity;
 import com.first.hdz.qq.view.fragment.ContactFragment;
@@ -55,23 +48,10 @@ import com.first.hdz.qq.view.fragment.DynamicFragment;
 import com.first.hdz.qq.view.fragment.MessageFragment;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -335,6 +315,36 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         headerView = mNav.getHeaderView(0);
         imgDynamic = headerView.findViewById(R.id.img_dynamic);
         mFrame = headerView.findViewById(R.id.frame);
+        mNav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                switch (id) {
+                    case R.id.vip_nav:
+                        turnToActivity(VIPActivity.class);
+                        break;
+                    case R.id.wallet_nav:
+                        turnToActivity(WalletActivity.class);
+                        break;
+                    case R.id.stare_nav:
+                        turnToActivity(StoreActivity.class);
+                        break;
+                    case R.id.album_nav:
+                        turnToActivity(AlbumActivity.class);
+                        break;
+                    case R.id.music_nav:
+                        turnToActivity(AudioActivity.class);
+                        break;
+                    case R.id.video_nav:
+                        turnToActivity(VideoActivity.class);
+                        break;
+                    case R.id.setting_nav:
+                        turnToActivity(SettingActivity.class);
+                        break;
+                }
+                return true;
+            }
+        });
         mGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int childId) {

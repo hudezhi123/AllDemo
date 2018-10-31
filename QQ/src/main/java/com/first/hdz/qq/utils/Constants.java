@@ -8,10 +8,12 @@ public class Constants {
 
     public static final String APK_NAME = "QQ.apk";
 
-    public static final String PROTOCOL_URL = "http://10.1.1.206:8080/QQServer/protocol.html";   //测试地址
+    public static String IP = "";
+
+    public static String PROTOCOL_URL = "http://" + IP + ":8080/QQServer/protocol.html";   //测试地址
 
     // URL
-    public static final String BASE_URL = "http://10.1.1.206:8080/QQServer/";
+    public static String BASE_URL = "http://" + IP + ":8080/QQServer/";
 
     public static final String LOGIN = "Login";
 
@@ -20,6 +22,8 @@ public class Constants {
     public static final String GET_MESSAGE = "Message";
 
     public static final String PROTOCOL = "Protocol";
+
+    public static final String IP_TEST = "IPTest";
 
 
     //变量

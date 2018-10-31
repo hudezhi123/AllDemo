@@ -8,11 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.first.hdz.qq.R;
+import com.first.hdz.qq.view.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DynamicFragment extends Fragment {
+public class DynamicFragment extends BaseFragment {
 
 
     public DynamicFragment() {

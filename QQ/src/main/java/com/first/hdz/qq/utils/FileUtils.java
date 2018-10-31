@@ -20,7 +20,7 @@ import java.io.InputStream;
  */
 public class FileUtils {
 
-    private static String TAG = "FileUtils";
+    private static String TAG = "QQ_FileUtils";
 
     private static boolean IsInit = false;
 

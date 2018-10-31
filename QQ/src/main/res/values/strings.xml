@@ -55,4 +55,10 @@
     <string name="download_progress">下载进度</string>
     <string name="percentage">%1$d%%</string>
     <string name="progress_express">%1$d/%2$d</string>
+    <string name="music">我的音乐</string>
+    <string name="video">我的视频</string>
+    <string name="input_ip">请输入IP地址:</string>
+    <string name="Ip_setting">IP设置</string>
+    <string name="contact_try">尝试连接?</string>
+    <string name="save">保存</string>
 </resources>

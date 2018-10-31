@@ -13,10 +13,12 @@ import com.first.hdz.qq.view.base.BaseFragment;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContactFragment extends BaseFragment {
+public class LocalMusicFragment extends BaseFragment {
 
+    public static String TITLE = "本地歌曲";
+    public static String TAG = "LocalMusicFragment";
 
-    public ContactFragment() {
+    public LocalMusicFragment() {
         // Required empty public constructor
     }
 
@@ -25,7 +27,7 @@ public class ContactFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact, container, false);
+        return inflater.inflate(R.layout.fragment_local_music, container, false);
     }
 
 }

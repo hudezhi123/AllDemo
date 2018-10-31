@@ -35,11 +35,19 @@
             android:authorities="com.first.hdz.apk.provider"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <activity android:name=".view.activity.VIPActivity" />
+        <activity android:name=".view.activity.WalletActivity" />
+        <activity android:name=".view.activity.StoreActivity" />
+        <activity android:name=".view.activity.AlbumActivity" />
+        <activity android:name=".view.activity.VideoActivity" />
+        <activity android:name=".view.activity.AudioActivity" />
+        <activity android:name=".view.activity.SettingActivity" />
+        <activity android:name=".view.activity.ConfigActivity"></activity>
     </application>
 
 </manifest>

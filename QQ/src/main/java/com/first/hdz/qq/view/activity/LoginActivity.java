@@ -71,6 +71,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         textRegister.setOnClickListener(this);
         textProtocol.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+        btnLogin.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ConfigActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        });
     }
 
 
