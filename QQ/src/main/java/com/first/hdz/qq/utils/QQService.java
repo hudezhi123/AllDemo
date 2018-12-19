@@ -72,10 +72,6 @@ public class QQService {
     }
 
     private void setConvertType(String type) {
-        if (StringUtils.isEmpty(Constants.IP)) {
-            throw new NullPointerException(TAG + "---IP is empty");
-        }
-        Constants.BASE_URL = "http://" + Constants.IP + ":8080/QQServer/";
         mRetrofitBuilder = new Retrofit.Builder().baseUrl(Constants.BASE_URL).addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         switch (type) {
             case TYPE_BOOLEAN:
