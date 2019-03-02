@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".swipelayout.QQSwipeActivity">
+
+    <com.first.hdz.customview.swipelayout.SwipeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff00"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="您好"
+                android:textColor="#ff000000"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="#ff00ff00"
+            android:gravity="center"
+            android:onClick="onTop"
+            android:text="置顶"
+            android:textColor="#ffffffff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="#ffff0000"
+            android:gravity="center"
+            android:onClick="onDelete"
+            android:text="删除"
+            android:textColor="#ffffffff"
+            android:textSize="20sp" />
+
+    </com.first.hdz.customview.swipelayout.SwipeLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <com.first.hdz.event.view.GrandParentView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffff0000"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center">
+
+        <com.first.hdz.event.view.ParentView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:background="#ff00ff00"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center">
+
+            <com.first.hdz.event.view.ChildView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#ff0000ff"
+                android:clickable="true"
+                android:focusable="true" />
+
+        </com.first.hdz.event.view.ParentView>
+
+    </com.first.hdz.event.view.GrandParentView>
+
+</LinearLayout>
